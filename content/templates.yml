@@ -1,0 +1,20 @@
+head.title: Nuxt 模板
+title: Nuxt 模板
+navigation.title: 模板
+description: '探索社区模板，在几秒钟内启动并运行。'
+navigation.icon: i-lucide-app-window
+align: center
+links:
+  - label: 'Nuxt Starters'
+    to: 'https://nuxt.new'
+    icon: 'i-simple-icons-nuxt'
+    target: '_blank'
+    variant: solid
+    color: neutral
+    size: md
+  - label: 'Full-stack Templates'
+    to: 'https://hub.nuxt.com/templates'
+    target: '_blank'
+    variant: subtle
+    color: neutral
+    size: md

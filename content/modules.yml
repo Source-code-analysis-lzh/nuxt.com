@@ -1,0 +1,17 @@
+title: Nuxt Modules
+navigation.title: Modules
+description: '探索我们的模块列表，为你的 Nuxt 项目注入强大动力。由 Nuxt 团队和社区共同打造。'
+navigation.icon: i-lucide-package
+links:
+  - label: '创建 Nuxt 模块'
+    to: '/docs/guide/going-further/modules'
+    icon: i-lucide-package-plus
+    color: neutral
+    size: sm
+  - label: '模块列表'
+    to: 'https://github.com/nuxt/modules#addupdate-a-module'
+    target: '_blank'
+    icon: i-lucide-list-plus
+    color: neutral
+    variant: subtle
+    size: sm
