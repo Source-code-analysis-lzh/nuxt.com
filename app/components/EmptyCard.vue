@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// 定义组件 props，并使用 withDefaults 设置默认值
 withDefaults(defineProps<{
   label?: string
 }>(), {

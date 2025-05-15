@@ -1,9 +1,10 @@
 <script setup lang="ts">
+// 定义组件 props，并使用 withDefaults 设置默认值
 withDefaults(defineProps<{
-  title: string
-  videoId: string
-  icon?: string
-  platform?: 'youtube' | 'vimeo'
+  title: string // 必填，折叠面板的标题
+  videoId: string // 必填，视频 ID（YouTube 或 Vimeo）
+  icon?: string // 可选图标，默认为 'i-lucide-video'
+  platform?: 'youtube' | 'vimeo' // 视频平台，默认为 YouTube
 }>(), {
   icon: 'i-lucide-video',
   platform: 'youtube'
@@ -11,6 +12,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
+  <!-- 这里的 [&>div]:my-0 是 Tailwind CSS 的任意变体语法，用于编写自定义选择器 -->
   <ProseCallout class="[&>div]:my-0 py-0">
     <UAccordion :items="[{ label: title, icon }]" :ui="{ }">
       <template #body>

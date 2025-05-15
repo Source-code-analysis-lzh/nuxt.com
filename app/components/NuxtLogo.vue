@@ -1,4 +1,5 @@
 <template>
+  <!--  Nuxt logo -->
   <svg
     class="text-highlighted"
     width="800"

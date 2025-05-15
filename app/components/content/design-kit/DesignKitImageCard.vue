@@ -1,9 +1,10 @@
 <script setup lang="ts">
+// 定义组件接收的 props
 defineProps<{
-  name: string
-  path: string
-  background?: string
-  full?: boolean
+  name: string // 图标名称，用于展示
+  path: string // 图标路径（相对于 /assets/design-kit/）
+  background?: string // 可选背景色样式类名
+  full?: boolean // 是否使用全尺寸内边距
 }>()
 </script>
 

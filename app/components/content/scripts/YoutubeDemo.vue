@@ -1,15 +1,21 @@
 <script setup lang="ts">
+// 控制视频是否已加载完成
 const isLoaded = ref(false)
+// 控制视频是否正在播放
 const isPlaying = ref(false)
+// 获取 ScriptYouTubePlayer 组件中的 player 实例（用于调用 playVideo 方法）
 const video = useTemplateRef<{ player: { playVideo: () => void } }>('video')
 
+// 播放按钮点击事件：调用 player.playVideo() 开始播放视频
 function play() {
   if (video.value?.player) {
     video.value.player.playVideo()
   }
 }
 
+// 监听 YouTube 播放状态变化事件
 function stateChange(event: { data: number }) {
+  // 当 data === 1 表示视频正在播放
   isPlaying.value = event.data === 1
 }
 </script>

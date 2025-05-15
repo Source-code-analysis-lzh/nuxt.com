@@ -1,10 +1,15 @@
 <script lang="ts" setup>
+// 定义 NuxtTurnstile 组件的方法接口（用于重置）
 interface NuxtTurnstile {
   reset: () => void
 }
+
+// 引入 valibot 进行表单验证
 import * as v from 'valibot'
+// 引入 FormSubmitEvent 类型定义，用于类型安全提交事件
 import type { FormSubmitEvent } from '#ui/types'
 
+// 定义组件接收的 props，包含整个表单的配置项
 const formProps = defineProps<{
   form: {
     name: { label: string, placeholder: string }
@@ -12,16 +17,22 @@ const formProps = defineProps<{
     company: { label: string, placeholder: string }
     body: { label: string, placeholder: string }
     info: string
-    button: any
+    button: any // 按钮配置（如文字、图标等）
   }
 }>()
 
+// 使用 toast 提示用户操作结果
 const toast = useToast()
 
+// 表单加载状态
 const loading = ref<boolean>(false)
+
+// 获取 turnstile 组件引用，用于手动重置
 const turnstile = useTemplateRef<NuxtTurnstile>('turnstile')
+// 存储 Turnstile 验证 token
 const token = ref()
 
+// 定义表单验证规则（使用 valibot）
 const schema = v.object({
   name: v.pipe(v.string(), v.minLength(1, 'Name is required')),
   email: v.pipe(
@@ -33,8 +44,10 @@ const schema = v.object({
   body: v.pipe(v.string(), v.minLength(1, 'Message is required'))
 })
 
+// 推断出验证对象的输出类型，用于 TypeScript 类型推导
 type Schema = v.InferOutput<typeof schema>
 
+// 定义响应式表单数据模型
 const state = reactive({
   name: '',
   email: '',
@@ -42,11 +55,15 @@ const state = reactive({
   body: ''
 })
 
+// 控制是否显示验证码（Turnstile）
 const showTurnstile = ref(false)
+
+// 判断是否可以提交表单：所有字段填写且有 token
 const canSend = computed(() => {
   return Boolean(state.name && state.email && state.company && state.body && token.value)
 })
 
+// 当任意表单字段被填满后，显示验证码控件
 watch([() => state.name, () => state.email, () => state.company, () => state.body],
   () => {
     if (state.name && state.email && state.company && state.body) {
@@ -56,6 +73,7 @@ watch([() => state.name, () => state.email, () => state.company, () => state.bod
   { immediate: true }
 )
 
+// 表单提交逻辑
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   if (!event.data) return
   if (loading.value || !canSend.value) return
@@ -70,6 +88,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     }
   })
     .then(() => {
+      // 成功发送邮件：清空表单并提示用户
       state.name = ''
       state.email = ''
       state.company = ''
@@ -78,10 +97,12 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       toast.add({ title: 'Email sent', description: 'We will do everything possible to respond to you as quickly as possible', color: 'success' })
     })
     .catch((e) => {
+      // 发送失败处理
       const description = e.data?.message || 'Something went wrong. Please try again later.'
       toast.add({ title: 'Email sending failed', description, color: 'error' })
     })
     .finally(() => {
+      // 不论成功与否，关闭加载状态并重置验证码
       loading.value = false
       // reset turnstile token
       turnstile.value?.reset()

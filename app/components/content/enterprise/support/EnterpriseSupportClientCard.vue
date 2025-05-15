@@ -1,18 +1,19 @@
 <script setup lang="ts">
+// 定义组件 props，用于展示客户评价卡片
 defineProps<{
-  quote: string
-  author: string
-  job: string
+  quote: string // 引用语（客户的评价内容）
+  author: string // 作者姓名
+  job: string // 作者职位
   logo: {
-    light: string
-    dark: string
-    alt?: string
-    width?: number
-    height?: number
+    light: string // 浅色模式下的 Logo 路径
+    dark: string // 深色模式下的 Logo 路径
+    alt?: string // Logo 的替代文本
+    width?: number // Logo 的宽度
+    height?: number // Logo 的高度
   }
   achievements: Array<{
-    label: string
-    color: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'important' | 'neutral'
+    label: string // 成就标签名称（例如 "Performance Improvement"）
+    color: 'primary' | 'secondary' | 'info' | 'success' | 'warning' | 'error' | 'important' | 'neutral'  // 标签颜色样式
   }>
 }>()
 </script>

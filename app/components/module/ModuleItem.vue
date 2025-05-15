@@ -1,13 +1,19 @@
 <script setup lang="ts">
 import type { Module } from '~/types'
 
+// 接收组件 props：module（模块数据）和 showBadge（是否显示徽章）
 const { module, showBadge = true } = defineProps<{
   module: Module
   showBadge?: boolean
 }>()
 
+// 使用剪贴板功能，用于复制安装命令
 const { copy } = useClipboard()
+
+// 获取当前选择的排序方式（用于时间展示）
 const { selectedSort } = useModules()
+
+// 根据排序字段动态计算时间展示（创建时间或发布时间）
 const date = computed(() => {
   if (selectedSort.value.key === 'publishedAt') {
     return useTimeAgo(module.stats.publishedAt)
@@ -16,6 +22,7 @@ const date = computed(() => {
   return useTimeAgo(module.stats.createdAt)
 })
 
+// 复制 Nuxt 模块安装命令到剪贴板
 function copyInstallCommand(moduleName: string) {
   const command = `npx nuxi@latest module add ${moduleName}`
   copy(command, { title: 'Command copied to clipboard:', description: command })

@@ -186,6 +186,12 @@ export default defineNuxtConfig({
     enableInDev: false,
     // Do not throw when twoslash fails, the typecheck should be down in github.com/nuxt/nuxt's CI
     throws: false
+  },
+  fonts: {
+    providers: {
+      google: false,
+      googleicons: false,
+    }
   }
 })
 // http://localhost:3000/_nuxt/@fs/D:/BaiduSyncdisk/sourceCode/web/nuxt.com/.nuxt/nuxt-fonts-global.css

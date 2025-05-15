@@ -2,10 +2,12 @@
 import { moduleImage, moduleIcon } from '~/composables/useModules'
 import type { Module } from '~/types'
 
+// 接收组件 props：模块列表
 const props = defineProps<{
-  modules: Module[]
+  modules: Module[] // 必填，模块数据数组
 }>()
 
+// Fisher-Yates 洗牌算法：打乱数组顺序，用于随机展示模块图标
 const shuffleArray = (array: Module[]) => {
   const shuffled = [...array]
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -15,14 +17,17 @@ const shuffleArray = (array: Module[]) => {
   return shuffled
 }
 
+// 使用 useState 缓存三行滚动模块数据（避免重复初始化）
 const marqueeModulesData = useState<Module[][]>('marqueeModules', () => [])
 
+// 根据行索引和项索引生成一个随机延迟值，用于动画错峰显示
 const getRandomDelay = (rowIndex: number, index: number) => {
   const baseDelay = (rowIndex * 0.3) + (index * 0.05)
   const randomOffset = ((rowIndex * 13) + index) % 10 * 0.1
   return baseDelay + randomOffset
 }
 
+// 初始化滚动模块数据：生成三行打乱后的模块列表
 const initMarqueeModules = () => {
   if (marqueeModulesData.value.length) return
 
@@ -36,6 +41,7 @@ const initMarqueeModules = () => {
   marqueeModulesData.value = [row1, row2, row3]
 }
 
+// 监听 modules 数据变化，当模块加载完成时初始化 marquee 数据
 watch(() => props.modules, (newVal?: Module[]) => {
   if (newVal?.length && !marqueeModulesData.value.length) {
     initMarqueeModules()

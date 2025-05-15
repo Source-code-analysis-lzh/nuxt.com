@@ -1,16 +1,20 @@
 <script lang="ts" setup>
+// 定义组件 props，用于展示一个圆形能力图标卡片
 const { logo } = defineProps<{
   logo: {
-    src: string
-    height?: number
-    width?: number
-    color: string
-    alt?: string
+    src: string // 图标图片路径
+    height?: number // 图片高度（可选）
+    width?: number // 图片宽度（可选）
+    color: string // 圆形背景渐变色
+    alt?: string // 替代文本（可选）
   }
 }>()
 
+// 获取颜色值用于样式绑定
 const color = logo.color
+// 使用 useTemplateRef 获取 DOM 元素引用 'circle'
 const circle = useTemplateRef('circle')
+// 使用 useMouseInElement 监听鼠标在元素内的位置（x, y）
 const { elementX, elementY } = useMouseInElement(circle)
 </script>
 

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// 定义组件接收的 props，包含一个 cloudinary 字符串，用于构建视频 URL
 defineProps<{
   cloudinary: string
 }>()

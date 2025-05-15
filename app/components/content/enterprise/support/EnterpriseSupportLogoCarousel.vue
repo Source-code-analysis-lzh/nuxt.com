@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// 定义 Logo 类型结构，包含 light/dark 模式图片路径、宽高和替代文本
 interface Logo {
   src: string
   width: number
@@ -8,21 +9,25 @@ interface Logo {
   dark: string
 }
 
+// 接收组件 props：一组 logo 数据
 const { logos } = defineProps({
   logos: {
-    type: Array as () => Logo[],
+    type: Array as () => Logo[], // 必填，logo 数组
     required: true
   }
 })
 
+// 获取 carousel 元素引用，用于控制动画播放状态
 const carousel = useTemplateRef('carousel')
 
+// 停止动画的方法
 const stopAnimation = () => {
   if (carousel.value) {
     carousel.value.style.animationPlayState = 'paused'
   }
 }
 
+// 恢复动画的方法
 const startAnimation = () => {
   if (carousel.value) {
     carousel.value.style.animationPlayState = 'running'
